@@ -1,0 +1,5 @@
+package com.example.demo.paypal.config;
+
+public enum PaypalPaymentMethod {
+	credit_card, paypal
+}

@@ -1,0 +1,98 @@
+
+<html lang="en">
+<head th:replace="index :: head">
+
+</head>
+<body>
+  <h1 class="site-heading text-center text-white d-none d-lg-block">
+    <span class="site-heading-upper text-primary mb-3">A Free Bootstrap 4 Business Theme</span>
+    <span class="site-heading-lower">Business Casual</span>
+  </h1>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav" th:replace="index :: slide">
+  </nav>
+  <h1 style="color: #2dbcfc">Shopping Cart</h1>
+  <div class="container">
+  <div class="shopping-cart" style="color: #03adf8" >
+      <div class="column-labels">
+          <label class="product-image">Image</label>
+          <label class="product-details">Product</label>
+          <label class="product-price">Price</label>
+          <label class="product-quantity">Quantity</label>
+          <label class="product-removal">Remove</label>
+          <label class="product-line-price">Total</label>
+      </div>
+  <div th:each="item : ${session.shoppingCart.items}">
+      <div class="product">
+          <div class="product-image">
+              <img th:src="'/img/'+${item.product.img}">
+          </div>
+          <div class="product-details">
+              <div class="product-title" th:text="${item.product.name}" ></div>
+              <p class="product-description" th:text="${item.product.description}"></p>
+          </div>
+          <div class="product-price" th:text="${item.product.price}"></div>
+          <div class="product-quantity">
+              <form action="#" th:action="@{/cart/update}" method="post">
+                <input type="hidden" th:value="${item.product.id}" name="id"/>
+                <input type="number" min="1" th:value="${item.quantity}" name="qty"/>
+                <button type="submit">update</button>
+            </form>
+          </div>
+          <div class="product-removal">
+                      <form action="#" th:action="@{/cart/remove}" method="post">
+                <input type="hidden" th:value="${item.product.id}" name="id"/>
+                        <button class="remove-product">
+                  Remove
+              </button>
+            </form>
+          </div>
+          <div class="product-line-price"><span th:text="${item.subTotal}"></span></div>
+      </div>
+          </div>
+         
+      </div>
+  </div>
+       <div class="totals">
+          <div class="totals-item totals-item-total">
+              <label>Grand Total</label>
+              <div class="totals-value">
+                  <input  class="product-line-price" type="text" th:value="${tongtien}" name="price" readonly/>
+              </div>
+              <div class="form-row">
+                  <form method="post" th:action="@{/thanhtoan}">
+                      <div class="form-group">
+                          <label>Name</label>
+                          <input type="text" class="form-control" name="namethanhtoan" aria-describedby="emailHelp" required=""  placeholder="Username">
+                          <i class="mdi mdi-account"></i>
+                      </div>
+                      <div class="form-group">
+                          <label>Email</label>
+                          <input type="email" class="form-control" name="emailthanhtoan" aria-describedby="emailHelp" required="" placeholder="Email">
+                          <i class="mdi mdi-account"></i>
+                      </div>
+                      <div class="form-group">
+                          <label>SDT</label>
+                          <input type="number" class="form-control" name="sdtthanhtoan" aria-describedby="emailHelp"required=""  placeholder="SDT">
+                          <i class="mdi mdi-account"></i>
+                      </div>
+                      <div class="form-group">
+                          <label >dia chi</label>
+                          <input type="text" class="form-control" name="diachithanhtoan" aria-describedby="emailHelp" required=""  placeholder="diachi">
+                          <i class="mdi mdi-account"></i>
+                      </div>
+                              <button  class="checkout" type="submit"> Payment with Paypal </button>
+                  </form>
+              </div>
+
+                   </div>
+  </div>
+  <footer></footer>
+  <!-- Bootstrap core JavaScript -->
+  <script src="/vendor/jquery/jquery.min.js"></script>
+  <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" charset="utf-8"></script>
+  </div>
+</body>
+
+</html>

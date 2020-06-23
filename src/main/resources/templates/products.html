@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="index :: head">
+</head>
+<body>
+
+  <h1 class="site-heading text-center text-white d-none d-lg-block">
+    <span class="site-heading-upper text-primary mb-3">A Free Bootstrap 4 Business Theme</span>
+    <span class="site-heading-lower">Business Casual</span>
+  </h1>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav" th:replace="index :: slide">
+  </nav>
+  <section class="page-section" th:each=" key: ${product}">
+    <div class="container">
+      <div class="product-item">
+        <div class="product-item-title d-flex">
+          <div class="bg-faded p-5 d-flex ml-auto rounded">
+            <h2 class="section-heading mb-0">
+            <span class="section-heading-upper" th:text="${key.name}"></span>
+              
+              <span class="section-heading-lower" th:text="${key.price+'$'}"> VND</span>
+            </h2>
+          </div>
+        </div>
+        <img class="product-item-img mx-auto d-flex rounded img-fluid mb-3 mb-lg-0" th:src="'/img/'+${key.img}"  alt="">
+        <div class="product-item-description d-flex mr-auto">
+          <div class="bg-faded p-5 rounded">
+            <p class="mb-0" th:text="${key.description}"></p>
+            <div style="color: #0000cc" th:if="${key.status}"> <p>con hang<p></div>
+            <div style="color: red" th:if="${key.status == false}"> <p>het hang<p></div>
+            <form th:action="@{/cart/add}" method="post">
+              <input type="hidden" th:value="${key.id}" name="id"/>
+              <div style="color: #0000cc" th:if="${key.status}"> <button type="submit">Add to cart</button> </div>
+              <div style="color: red" th:if="${key.status == false}">
+                <button type="submit" disabled >Add to cart</button></div>
+            </form>
+          </div>        
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer text-faded text-center py-5">
+    <div class="container">
+      <p class="m-0 small">Copyright &copy; Your Website 2019</p>
+    </div>
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="/vendor/jquery/jquery.min.js"></script>
+  <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
